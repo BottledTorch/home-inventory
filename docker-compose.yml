@@ -1,0 +1,34 @@
+version: '3'
+services:
+  react-frontend:
+    image: node:latest
+    working_dir: /app
+    volumes:
+      - ./react-frontend:/app
+    ports:
+      - "3000:3000"
+    command: bash -c "npm install && npm start"
+
+  express-backend:
+    image: node:latest
+    working_dir: /app
+    volumes:
+      - ./express-backend:/app
+    ports:
+      - "5000:5000"
+    command: bash -c "npm install && node server.js"
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root 
+      MYSQL_DATABASE: home_inventory_db  
+      MYSQL_USER: mahnkemj  
+      MYSQL_PASSWORD: password 
+    ports:
+      - "3310:3306"
+    volumes:
+      - my-db:/var/lib/mysql
+
+volumes:
+  my-db:
